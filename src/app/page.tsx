@@ -20,9 +20,33 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col h-[100dvh] w-full items-center justify-center">
-      <h1>SIMPfy</h1>
-      <button onClick={handleRedirect}>Log in with Spotify</button>
+    <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-between py-10">
+      <div className="flex flex-col items-center gap-2">
+        <h1 className="text-white text-[32px] font-bold text-center">SIMPfy</h1>
+        <span className="text-white text-center text-md">
+          The artists that you SIMP the most
+        </span>
+      </div>
+
+      <button
+        onClick={handleRedirect}
+        className="h-12 bg-[#1BB954] flex items-center justify-center rounded-md py-2 px-4 w-[200px]"
+      >
+        <span className="text-white font-bold">Log in with Spotify</span>
+      </button>
+
+      <div>
+        <span className="text-white text-xs">
+          Made by{" "}
+          <a
+            href="https://www.wilsoncarvalho.com/"
+            target="_blank"
+            className="font-bold underline"
+          >
+            Wilson Carvalho
+          </a>
+        </span>
+      </div>
     </main>
   );
 }
