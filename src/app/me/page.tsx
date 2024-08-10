@@ -1,24 +1,21 @@
 "use client";
 
-import useAuth from "@/hooks/useAuth";
 import { getAccessToken } from "@/services/auth";
 import { fetchProfile } from "@/services/profile";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-export default function Home() {
+// import { Container } from './styles';
+
+const Me = () => {
   const params = useSearchParams();
   const code = params.get("code") || "";
 
-  const { redirectToAuthCodeFlow } = useAuth();
-
-  const handleRedirect = async () => {
+  const getUserInfo = async () => {
     try {
       const clientId = process.env.NEXT_PUBLIC_CLIENT_ID || "";
 
-      if (!code) {
-        redirectToAuthCodeFlow(clientId);
-      } else {
+      if (code) {
         let accessToken = localStorage.getItem("@simpfy_access_token");
 
         if (!accessToken) {
@@ -28,6 +25,7 @@ export default function Home() {
         if (accessToken) {
           localStorage.setItem("@simpfy_access_token", accessToken);
           const profile = await fetchProfile();
+
           console.log(profile);
         }
       }
@@ -37,8 +35,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    handleRedirect();
+    getUserInfo();
   }, [code]);
+  return <div></div>;
+};
 
-  return <main></main>;
-}
+export default Me;
