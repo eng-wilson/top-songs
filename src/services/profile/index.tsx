@@ -6,11 +6,11 @@ export const fetchProfile = async (): Promise<any> => {
   return result.data;
 };
 
-export const getUserTop = (type: "artists" | "tracks") => {
+export const getUserTop = (type: "artists" | "tracks", offset: number) => {
   return spotifyAPI.get(`/me/top/${type}`, {
     params: {
-      limit: 20,
-      offset: 20,
+      limit: 50,
+      offset,
     },
   });
 };
