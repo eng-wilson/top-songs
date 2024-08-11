@@ -7,7 +7,7 @@ export const getAccessToken = async (clientId: string, code: string) => {
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
   params.append("code", code);
-  params.append("redirect_uri", "http://localhost:3000/me");
+  params.append("redirect_uri", `${process.env.NEXT_PUBLIC_REDIRECT_URI}/me`);
   params.append("code_verifier", verifier!);
 
   const result = await spotifyAuthAPI.post("/token", params, {
