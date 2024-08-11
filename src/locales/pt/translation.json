@@ -1,4 +1,9 @@
 {
   "madeBy": "Feito por",
-  "spotifyLogin": "Entre com Spotify"
+  "spotifyLogin": "Entre com Spotify",
+  "description": {
+    "part1": "Os artistas que você é",
+    "part2": "GADO",
+    "part3": "demais"
+  }
 }

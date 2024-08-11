@@ -1,12 +1,14 @@
 "use client";
 
+import { useLocale } from "@/contexts/LocaleContext";
 import useAuth from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 
 export default function Home() {
-  const { t } = useTranslation("translation", { lng: "en" });
+  const { activeLocale, handleActiveLocale } = useLocale();
+  const { t } = useTranslation("translation", { lng: activeLocale });
   const { redirectToAuthCodeFlow } = useAuth();
   const languageOptions = [
     { label: "🇺🇸 English", value: "en" },
@@ -34,13 +36,20 @@ export default function Home() {
           SIMPfy
         </h1>
         <span className="text-white text-center text-md font-poppins">
-          The artists that you <span className="font-bold">SIMP</span> the most
+          {t("description.part1")}{" "}
+          <span className="font-bold">{t("description.part2")}</span>{" "}
+          {t("description.part3")}
         </span>
       </div>
 
       <div className="absolute top-3 right-3">
         <Select
           defaultValue={languageOptions[0]}
+          onChange={(e) => {
+            if (e?.value) {
+              handleActiveLocale(e?.value);
+            }
+          }}
           isSearchable={false}
           name="Language"
           options={languageOptions}
