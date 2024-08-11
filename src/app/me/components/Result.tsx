@@ -8,7 +8,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import Artist from "./Artist";
 import Title from "./Title";
 
-// import { Container } from './styles';
+let skip = false;
 
 const Result = () => {
   const params = useSearchParams();
@@ -94,10 +94,14 @@ const Result = () => {
   };
 
   useEffect(() => {
-    if (code) {
+    if (code && !skip) {
       getUserInfo();
 
       getTopTracksData();
+
+      return () => {
+        skip = true;
+      };
     }
   }, [code]);
 
