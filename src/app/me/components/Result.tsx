@@ -16,6 +16,7 @@ const Result = () => {
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID || "";
 
   const [user, setUser] = useState<any>();
+  const [fetching, setFetching] = useState(true);
   const [items, setItems] = useState<{
     s: any[];
     i: any[];
@@ -87,6 +88,8 @@ const Result = () => {
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      setFetching(false);
     }
   };
 
@@ -103,66 +106,86 @@ const Result = () => {
       <h1 className="text-white text-[30px] md:text-[42px] font-semibold text-center font-poppins">
         Yes, I&apos;m a <span className="font-black">SIMP</span>
       </h1>
-      <section className="flex flex-col h-fit justify-center px-2 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
-        <div className="flex items-center gap-2">
-          <Title title="S" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.s.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+      {!fetching && (
+        <section className="flex flex-col h-fit justify-center px-2 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
+          <div className="flex items-center gap-2">
+            <Title title="S" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.s.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Title title="I" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.i.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            <Title title="I" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.i.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Title title="M" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.m.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            <Title title="M" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.m.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Title title="P" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.p.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            <Title title="P" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.p.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <span className="text-xs text-center font-poppins">
-        Made for <b>{user?.display_name}</b> with{" "}
-        <a href="" className="font-bold">
-          SIMPfy
-        </a>
-      </span>
+      {fetching && (
+        <svg
+          className="animate-spin m-auto "
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"
+            className="spinner_P7sC"
+            fill="#fff"
+          />
+        </svg>
+      )}
+
+      {!fetching && (
+        <span className="text-xs text-center font-poppins">
+          Made for <b>{user?.display_name}</b> with{" "}
+          <a href="" className="font-bold">
+            SIMPfy
+          </a>
+        </span>
+      )}
     </main>
   );
 };
