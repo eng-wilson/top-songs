@@ -15,8 +15,7 @@ const Me = () => {
   const code = params.get("code") || "";
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID || "";
 
-  const [user, setUser] = useState();
-  const [topTracks, setTopTracks] = useState<any[]>([]);
+  const [user, setUser] = useState<any>();
   const [items, setItems] = useState<{
     s: any[];
     i: any[];
@@ -66,8 +65,6 @@ const Me = () => {
         const response2 = await getUserTop("artists", 50);
 
         if (response.data.items && response2.data.items) {
-          setTopTracks([...response.data.items, ...response2.data.items]);
-
           setItems({
             s: [...response.data.items, ...response2.data.items].filter(
               (track: { name: string }) =>
@@ -106,7 +103,7 @@ const Me = () => {
       <h1 className="text-white text-[30px] md:text-[42px] font-semibold text-center font-poppins">
         Yes, I&apos;m a <span className="font-black">SIMP</span>
       </h1>
-      <section className="flex flex-col h-fit justify-center px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
+      <section className="flex flex-col h-fit justify-center px-2 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
         <div className="flex items-center gap-2">
           <Title title="S" />
           <div className="flex items-center gap-2 flex-wrap">
@@ -161,7 +158,7 @@ const Me = () => {
       </section>
 
       <span className="text-xs text-center font-poppins">
-        Made with{" "}
+        Made for <b>{user?.display_name}</b> with{" "}
         <a href="" className="font-bold">
           SIMPfy
         </a>
