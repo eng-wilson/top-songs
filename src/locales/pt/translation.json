@@ -1,9 +1,13 @@
 {
   "madeBy": "Feito por",
+  "madeFor": "Feito para",
+  "with": "com",
   "spotifyLogin": "Entre com Spotify",
   "description": {
     "part1": "Os artistas que você é",
     "part2": "GADO",
     "part3": "demais"
-  }
+  },
+  "iAm": "Sim, eu sou",
+  "simp": "GADO"
 }

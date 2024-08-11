@@ -1,9 +1,13 @@
 {
   "madeBy": "Made by",
+  "madeFor": "Made for",
+  "with": "with",
   "spotifyLogin": "Log in with Spotify",
   "description": {
     "part1": "The artists that you",
     "part2": "SIMP",
     "part3": "the most"
-  }
+  },
+  "iAm": "Yes, I'm a",
+  "simp": "SIMP"
 }

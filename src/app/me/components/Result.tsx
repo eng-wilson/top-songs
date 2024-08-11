@@ -7,13 +7,24 @@ import { useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import Artist from "./Artist";
 import Title from "./Title";
+import { useLocale } from "@/contexts/LocaleContext";
+import { useTranslation } from "react-i18next";
+import Select from "react-select";
 
 let skip = false;
 
 const Result = () => {
+  const { activeLocale, handleActiveLocale } = useLocale();
+  const { t } = useTranslation("translation", { lng: activeLocale });
+
   const params = useSearchParams();
   const code = params.get("code") || "";
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID || "";
+
+  const languageOptions = [
+    { label: "🇺🇸 English", value: "en" },
+    { label: "🇧🇷 Português", value: "pt" },
+  ];
 
   const [user, setUser] = useState<any>();
   const [fetching, setFetching] = useState(true);
@@ -31,6 +42,7 @@ const Result = () => {
 
   const getTopTracksData = async () => {
     try {
+      setFetching(true);
       let accessToken = localStorage.getItem("@simpfy_access_token");
 
       if (!accessToken) {
@@ -51,19 +63,27 @@ const Result = () => {
           setItems({
             s: [...response.data.items, ...response2.data.items].filter(
               (track: { name: string }) =>
-                track.name.toLocaleLowerCase().startsWith("s")
+                track.name
+                  .toLocaleLowerCase()
+                  .startsWith(t("simp")[0].toLocaleLowerCase())
             ),
             i: [...response.data.items, ...response2.data.items].filter(
               (track: { name: string }) =>
-                track.name.toLocaleLowerCase().startsWith("i")
+                track.name
+                  .toLocaleLowerCase()
+                  .startsWith(t("simp")[1].toLocaleLowerCase())
             ),
             m: [...response.data.items, ...response2.data.items].filter(
               (track: { name: string }) =>
-                track.name.toLocaleLowerCase().startsWith("m")
+                track.name
+                  .toLocaleLowerCase()
+                  .startsWith(t("simp")[2].toLocaleLowerCase())
             ),
             p: [...response.data.items, ...response2.data.items].filter(
               (track: { name: string }) =>
-                track.name.toLocaleLowerCase().startsWith("p")
+                track.name
+                  .toLocaleLowerCase()
+                  .startsWith(t("simp")[3].toLocaleLowerCase())
             ),
           });
         }
@@ -76,24 +96,49 @@ const Result = () => {
   };
 
   useEffect(() => {
-    if (code && !skip) {
+    if (code) {
       getTopTracksData();
-
-      return () => {
-        skip = true;
-      };
     }
-  }, [code]);
+  }, [code, t("simp")]);
 
   return (
     <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-start pt-10 px-4 gap-6">
+      <div className="absolute top-3 right-3">
+        <Select
+          defaultValue={languageOptions[0]}
+          onChange={(e) => {
+            if (e?.value) {
+              handleActiveLocale(e?.value);
+            }
+          }}
+          isSearchable={false}
+          name="Language"
+          options={languageOptions}
+          styles={{
+            option: () => {
+              return {
+                color: "black",
+                cursor: "pointer",
+                fontFamily: "var(--poppins-font)",
+                paddingLeft: 4,
+              };
+            },
+            control: (style) => {
+              return {
+                ...style,
+                fontFamily: "var(--poppins-font)",
+              };
+            },
+          }}
+        />
+      </div>
       <h1 className="text-white text-[30px] md:text-[42px] font-semibold text-center font-poppins">
-        Yes, I&apos;m a <span className="font-black">SIMP</span>
+        {t("iAm")} <span className="font-black">{t("simp")}</span>
       </h1>
       {!fetching && (
         <section className="flex flex-col h-fit justify-center px-2 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
           <div className="flex items-center gap-2">
-            <Title title="S" />
+            <Title title={t("simp")[0]} />
             <div className="flex items-center gap-2 flex-wrap">
               {items?.s.slice(0, 2).map((item) => (
                 <Artist
@@ -106,7 +151,7 @@ const Result = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Title title="I" />
+            <Title title={t("simp")[1]} />
             <div className="flex items-center gap-2 flex-wrap">
               {items?.i.slice(0, 2).map((item) => (
                 <Artist
@@ -119,7 +164,7 @@ const Result = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Title title="M" />
+            <Title title={t("simp")[2]} />
             <div className="flex items-center gap-2 flex-wrap">
               {items?.m.slice(0, 2).map((item) => (
                 <Artist
@@ -132,7 +177,7 @@ const Result = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Title title="P" />
+            <Title title={t("simp")[3]} />
             <div className="flex items-center gap-2 flex-wrap">
               {items?.p.slice(0, 2).map((item) => (
                 <Artist
@@ -164,7 +209,7 @@ const Result = () => {
 
       {!fetching && (
         <span className="text-xs text-center font-poppins">
-          Made for <b>{user?.display_name}</b> with{" "}
+          {t("madeFor")} <b>{user?.display_name}</b> {t("with")}{" "}
           <a href="" className="font-bold">
             SIMPfy
           </a>
