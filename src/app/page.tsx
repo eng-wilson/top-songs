@@ -17,6 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     localStorage.removeItem("@simpfy_access_token");
+    localStorage.removeItem("verifier");
   }, []);
 
   return (
