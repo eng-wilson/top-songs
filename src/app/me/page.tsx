@@ -4,7 +4,7 @@ import { getAccessToken } from "@/services/auth";
 import { fetchProfile, getUserTop } from "@/services/profile";
 import { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Artist from "./components/Artist";
 import Title from "./components/Title";
 
@@ -99,71 +99,73 @@ const Me = () => {
   }, [code]);
 
   return (
-    <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-start pt-10 px-4 gap-6">
-      <h1 className="text-white text-[30px] md:text-[42px] font-semibold text-center font-poppins">
-        Yes, I&apos;m a <span className="font-black">SIMP</span>
-      </h1>
-      <section className="flex flex-col h-fit justify-center px-2 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
-        <div className="flex items-center gap-2">
-          <Title title="S" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.s.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+    <Suspense>
+      <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-start pt-10 px-4 gap-6">
+        <h1 className="text-white text-[30px] md:text-[42px] font-semibold text-center font-poppins">
+          Yes, I&apos;m a <span className="font-black">SIMP</span>
+        </h1>
+        <section className="flex flex-col h-fit justify-center px-2 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
+          <div className="flex items-center gap-2">
+            <Title title="S" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.s.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Title title="I" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.i.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            <Title title="I" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.i.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Title title="M" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.m.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            <Title title="M" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.m.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Title title="P" />
-          <div className="flex items-center gap-2 flex-wrap">
-            {items?.p.slice(0, 2).map((item) => (
-              <Artist
-                key={item.name}
-                name={item.name}
-                image={item.images[0].url}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            <Title title="P" />
+            <div className="flex items-center gap-2 flex-wrap">
+              {items?.p.slice(0, 2).map((item) => (
+                <Artist
+                  key={item.name}
+                  name={item.name}
+                  image={item.images[0].url}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <span className="text-xs text-center font-poppins">
-        Made for <b>{user?.display_name}</b> with{" "}
-        <a href="" className="font-bold">
-          SIMPfy
-        </a>
-      </span>
-    </main>
+        <span className="text-xs text-center font-poppins">
+          Made for <b>{user?.display_name}</b> with{" "}
+          <a href="" className="font-bold">
+            SIMPfy
+          </a>
+        </span>
+      </main>
+    </Suspense>
   );
 };
 
