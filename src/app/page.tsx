@@ -2,9 +2,14 @@
 
 import useAuth from "@/hooks/useAuth";
 import { useEffect } from "react";
+import Select from "react-select";
 
 export default function Home() {
   const { redirectToAuthCodeFlow } = useAuth();
+  const languageOptions = [
+    { label: "🇺🇸 English", value: "en-us" },
+    { label: "🇧🇷 Português", value: "pt-br" },
+  ];
 
   const handleRedirect = async () => {
     try {
@@ -29,6 +34,31 @@ export default function Home() {
         <span className="text-white text-center text-md font-poppins">
           The artists that you <span className="font-bold">SIMP</span> the most
         </span>
+      </div>
+
+      <div className="absolute top-3 right-3">
+        <Select
+          defaultValue={languageOptions[0]}
+          isSearchable={false}
+          name="Language"
+          options={languageOptions}
+          styles={{
+            option: () => {
+              return {
+                color: "black",
+                cursor: "pointer",
+                fontFamily: "var(--poppins-font)",
+                paddingLeft: 4,
+              };
+            },
+            control: (style) => {
+              return {
+                ...style,
+                fontFamily: "var(--poppins-font)",
+              };
+            },
+          }}
+        />
       </div>
 
       <button
