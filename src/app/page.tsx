@@ -2,13 +2,15 @@
 
 import useAuth from "@/hooks/useAuth";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import Select from "react-select";
 
 export default function Home() {
+  const { t } = useTranslation("translation", { lng: "en" });
   const { redirectToAuthCodeFlow } = useAuth();
   const languageOptions = [
-    { label: "🇺🇸 English", value: "en-us" },
-    { label: "🇧🇷 Português", value: "pt-br" },
+    { label: "🇺🇸 English", value: "en" },
+    { label: "🇧🇷 Português", value: "pt" },
   ];
 
   const handleRedirect = async () => {
@@ -66,13 +68,13 @@ export default function Home() {
         className="h-12 bg-[#1BB954] flex items-center justify-center rounded-md py-2 px-4 w-[200px]"
       >
         <span className="text-white font-bold font-poppins">
-          Log in with Spotify
+          {t("spotifyLogin")}
         </span>
       </button>
 
       <div>
         <span className="text-white text-xs font-poppins">
-          Made by{" "}
+          {t("madeBy")}{" "}
           <a
             href="https://www.wilsoncarvalho.com/"
             target="_blank"
