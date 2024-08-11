@@ -29,30 +29,6 @@ const Result = () => {
     p: [],
   });
 
-  const getUserInfo = async () => {
-    try {
-      if (code) {
-        let accessToken = localStorage.getItem("@simpfy_access_token");
-
-        if (!accessToken) {
-          accessToken = await getAccessToken(clientId, code);
-        }
-
-        if (accessToken) {
-          localStorage.setItem("@simpfy_access_token", accessToken);
-
-          const profile = await fetchProfile();
-
-          if (profile) {
-            setUser(profile);
-          }
-        }
-      }
-    } catch (e: any) {
-      console.log(e);
-    }
-  };
-
   const getTopTracksData = async () => {
     try {
       let accessToken = localStorage.getItem("@simpfy_access_token");
@@ -64,6 +40,12 @@ const Result = () => {
         localStorage.setItem("@simpfy_access_token", accessToken);
         const response = await getUserTop("artists", 0);
         const response2 = await getUserTop("artists", 50);
+
+        const profile = await fetchProfile();
+
+        if (profile) {
+          setUser(profile);
+        }
 
         if (response.data.items && response2.data.items) {
           setItems({
@@ -95,8 +77,6 @@ const Result = () => {
 
   useEffect(() => {
     if (code && !skip) {
-      getUserInfo();
-
       getTopTracksData();
 
       return () => {
