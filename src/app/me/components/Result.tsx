@@ -102,7 +102,7 @@ const Result = () => {
   }, [code, t("simp")]);
 
   return (
-    <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-start pt-10 px-4 gap-6">
+    <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-start pt-16 px-4 gap-6">
       <div className="absolute top-3 right-3">
         <Select
           defaultValue={languageOptions[0]}
@@ -140,7 +140,7 @@ const Result = () => {
           <div className="flex items-center gap-2">
             <Title title={t("simp")[0]} />
             <div className="flex items-center gap-2 flex-wrap">
-              {items?.s.slice(0, 2).map((item) => (
+              {items?.s.slice(0, 1).map((item) => (
                 <Artist
                   key={item.name}
                   name={item.name}
@@ -153,7 +153,7 @@ const Result = () => {
           <div className="flex items-center gap-2">
             <Title title={t("simp")[1]} />
             <div className="flex items-center gap-2 flex-wrap">
-              {items?.i.slice(0, 2).map((item) => (
+              {items?.i.slice(0, 1).map((item) => (
                 <Artist
                   key={item.name}
                   name={item.name}
@@ -166,7 +166,7 @@ const Result = () => {
           <div className="flex items-center gap-2">
             <Title title={t("simp")[2]} />
             <div className="flex items-center gap-2 flex-wrap">
-              {items?.m.slice(0, 2).map((item) => (
+              {items?.m.slice(0, 1).map((item) => (
                 <Artist
                   key={item.name}
                   name={item.name}
@@ -179,7 +179,7 @@ const Result = () => {
           <div className="flex items-center gap-2">
             <Title title={t("simp")[3]} />
             <div className="flex items-center gap-2 flex-wrap">
-              {items?.p.slice(0, 2).map((item) => (
+              {items?.p.slice(0, 1).map((item) => (
                 <Artist
                   key={item.name}
                   name={item.name}
