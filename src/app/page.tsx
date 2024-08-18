@@ -7,13 +7,9 @@ import { useTranslation } from "react-i18next";
 import Select from "react-select";
 
 export default function Home() {
-  const { activeLocale, handleActiveLocale } = useLocale();
-  const { t } = useTranslation("translation", { lng: activeLocale });
+  const { activeLocale, handleActiveLocale, languageOptions } = useLocale();
+  const { t } = useTranslation("translation", { lng: activeLocale.value });
   const { redirectToAuthCodeFlow } = useAuth();
-  const languageOptions = [
-    { label: "🇺🇸 English", value: "en" },
-    { label: "🇧🇷 Português", value: "pt" },
-  ];
 
   const handleRedirect = async () => {
     try {
@@ -30,28 +26,49 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-between py-10">
+    <main className="flex bg-[#fafafa] flex-col h-[100dvh] w-full items-center justify-between py-10">
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-white text-[32px] font-bold text-center font-poppins">
+        <h1 className="text-[#17171f] text-[32px] font-bold text-center font-poppins">
           SIMPfy
         </h1>
-        <span className="text-white text-center text-md font-poppins">
+        <span className="text-[#17171f] text-center text-md font-poppins">
           {t("description.part1")}{" "}
           <span className="font-bold">{t("description.part2")}</span>{" "}
           {t("description.part3")}
         </span>
       </div>
 
-      <div className="absolute top-3 right-3">
+      <button
+        onClick={handleRedirect}
+        className="h-12 bg-[#1BB954] flex items-center justify-center rounded-md py-2 px-4 w-[200px]"
+      >
+        <span className="text-[#fff] font-bold font-poppins">
+          {t("spotifyLogin")}
+        </span>
+      </button>
+
+      <div className="flex flex-col gap-4">
+        <span className="text-[#17171f] text-xs font-poppins">
+          {t("madeBy")}{" "}
+          <a
+            href="https://www.wilsoncarvalho.com/"
+            target="_blank"
+            className="font-bold"
+          >
+            Wilson Carvalho
+          </a>
+        </span>
+
         <Select
-          defaultValue={languageOptions[0]}
+          defaultValue={activeLocale}
           onChange={(e) => {
-            if (e?.value) {
-              handleActiveLocale(e?.value);
+            if (e) {
+              handleActiveLocale(e);
             }
           }}
           isSearchable={false}
           name="Language"
+          menuPlacement="top"
           options={languageOptions}
           styles={{
             option: () => {
@@ -70,28 +87,6 @@ export default function Home() {
             },
           }}
         />
-      </div>
-
-      <button
-        onClick={handleRedirect}
-        className="h-12 bg-[#1BB954] flex items-center justify-center rounded-md py-2 px-4 w-[200px]"
-      >
-        <span className="text-white font-bold font-poppins">
-          {t("spotifyLogin")}
-        </span>
-      </button>
-
-      <div>
-        <span className="text-white text-xs font-poppins">
-          {t("madeBy")}{" "}
-          <a
-            href="https://www.wilsoncarvalho.com/"
-            target="_blank"
-            className="font-bold"
-          >
-            Wilson Carvalho
-          </a>
-        </span>
       </div>
     </main>
   );

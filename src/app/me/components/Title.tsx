@@ -4,7 +4,7 @@ import React from "react";
 
 const Title = ({ title }: { title: string }) => {
   return (
-    <span className="text-white text-[40px] md:text-[48px] font-black w-[40px] text-center font-poppins">
+    <span className="text-[#17171f] text-[40px] md:text-[48px] font-black w-[40px] text-center font-poppins">
       {title}
     </span>
   );

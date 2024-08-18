@@ -14,17 +14,12 @@ import Select from "react-select";
 let skip = false;
 
 const Result = () => {
-  const { activeLocale, handleActiveLocale } = useLocale();
-  const { t } = useTranslation("translation", { lng: activeLocale });
+  const { activeLocale, handleActiveLocale, languageOptions } = useLocale();
+  const { t } = useTranslation("translation", { lng: activeLocale.value });
 
   const params = useSearchParams();
   const code = params.get("code") || "";
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID || "";
-
-  const languageOptions = [
-    { label: "🇺🇸 English", value: "en" },
-    { label: "🇧🇷 Português", value: "pt" },
-  ];
 
   const [user, setUser] = useState<any>();
   const [fetching, setFetching] = useState(true);
@@ -102,41 +97,12 @@ const Result = () => {
   }, [code, t("simp")]);
 
   return (
-    <main className="flex bg-[#17171f] flex-col h-[100dvh] w-full items-center justify-start pt-16 px-4 gap-6">
-      <div className="absolute top-3 right-3">
-        <Select
-          defaultValue={languageOptions[0]}
-          onChange={(e) => {
-            if (e?.value) {
-              handleActiveLocale(e?.value);
-            }
-          }}
-          isSearchable={false}
-          name="Language"
-          options={languageOptions}
-          styles={{
-            option: () => {
-              return {
-                color: "black",
-                cursor: "pointer",
-                fontFamily: "var(--poppins-font)",
-                paddingLeft: 4,
-              };
-            },
-            control: (style) => {
-              return {
-                ...style,
-                fontFamily: "var(--poppins-font)",
-              };
-            },
-          }}
-        />
-      </div>
-      <h1 className="text-white text-[30px] md:text-[42px] font-semibold text-center font-poppins">
+    <main className="flex bg-[#fafafa] flex-col h-[100dvh] w-full items-center justify-start pt-16 px-4 gap-6">
+      <h1 className="text-[#17171f] text-[30px] md:text-[42px] font-semibold text-center font-poppins">
         {t("iAm")} <span className="font-black">{t("simp")}</span>
       </h1>
       {!fetching && (
-        <section className="flex flex-col h-fit justify-center px-2 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white/5">
+        <section className="flex flex-col h-fit justify-center px-4 md:px-6 py-4 gap-6 md:gap-10 max-w-[500px] rounded-md bg-white shadow-md">
           <div className="flex items-center gap-2">
             <Title title={t("simp")[0]} />
             <div className="flex items-center gap-2 flex-wrap">
@@ -202,18 +168,51 @@ const Result = () => {
           <path
             d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"
             className="spinner_P7sC"
-            fill="#fff"
+            fill="#17171f"
           />
         </svg>
       )}
 
       {!fetching && (
-        <span className="text-xs text-center font-poppins">
-          {t("madeFor")} <b>{user?.display_name}</b> {t("with")}{" "}
-          <a href="" className="font-bold">
-            SIMPfy
-          </a>
-        </span>
+        <div className="flex flex-col gap-4 h-full">
+          <span className="text-[#17171f] text-xs text-center font-poppins">
+            {t("madeFor")} <b>{user?.display_name}</b> {t("with")}{" "}
+            <a href="" className="font-bold">
+              SIMPfy
+            </a>
+          </span>
+
+          <div className="mt-auto pb-10">
+            <Select
+              defaultValue={activeLocale}
+              onChange={(e) => {
+                if (e) {
+                  handleActiveLocale(e);
+                }
+              }}
+              isSearchable={false}
+              name="Language"
+              menuPlacement="top"
+              options={languageOptions}
+              styles={{
+                option: () => {
+                  return {
+                    color: "black",
+                    cursor: "pointer",
+                    fontFamily: "var(--poppins-font)",
+                    paddingLeft: 4,
+                  };
+                },
+                control: (style) => {
+                  return {
+                    ...style,
+                    fontFamily: "var(--poppins-font)",
+                  };
+                },
+              }}
+            />
+          </div>
+        </div>
       )}
     </main>
   );
