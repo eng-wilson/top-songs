@@ -1,9 +1,19 @@
 import React from "react";
 
-const Artist = ({ name, image }: { name: string; image: string }) => {
+const Artist = ({
+  name,
+  image,
+  href,
+}: {
+  name: string;
+  image: string;
+  href: string;
+}) => {
   return (
-    <div
+    <a
       key={name}
+      href={href}
+      target="_blank"
       className="flex items-center gap-2 bg-[#fff] rounded-md px-3 py-2 w-fit max-w-[175px] shadow-md"
     >
       <img
@@ -15,7 +25,7 @@ const Artist = ({ name, image }: { name: string; image: string }) => {
       <span className="text-[#17171f] text-xs md:text-md font-semibold font-poppins">
         {name}
       </span>
-    </div>
+    </a>
   );
 };
 

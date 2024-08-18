@@ -111,6 +111,7 @@ const Result = () => {
                   key={item.name}
                   name={item.name}
                   image={item.images[0].url}
+                  href={item.external_urls.spotify}
                 />
               ))}
             </div>
@@ -124,6 +125,7 @@ const Result = () => {
                   key={item.name}
                   name={item.name}
                   image={item.images[0].url}
+                  href={item.external_urls.spotify}
                 />
               ))}
             </div>
@@ -137,6 +139,7 @@ const Result = () => {
                   key={item.name}
                   name={item.name}
                   image={item.images[0].url}
+                  href={item.external_urls.spotify}
                 />
               ))}
             </div>
@@ -150,6 +153,7 @@ const Result = () => {
                   key={item.name}
                   name={item.name}
                   image={item.images[0].url}
+                  href={item.external_urls.spotify}
                 />
               ))}
             </div>
