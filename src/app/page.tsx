@@ -40,7 +40,7 @@ export default function Home() {
 
       <button
         onClick={handleRedirect}
-        className="h-12 bg-[#1BB954] flex items-center justify-center rounded-md py-2 px-4 w-[200px]"
+        className="h-12 bg-[#1BB954] flex items-center justify-center rounded-md py-2 px-4 w-[200px] shadow-md"
       >
         <span className="text-[#fff] font-bold font-poppins">
           {t("spotifyLogin")}
